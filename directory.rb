@@ -8,7 +8,8 @@ def input_students
   # while the name is not empty, repat this code
   while !name.empty? do
     puts "Enter cohort: "
-    cohort = gets.chomp
+    cohort = gets
+    cohort = cohort[0..-2]
     cohort.gsub!(" ","")
     cohort = "november" if cohort == ""
     cohort = cohort.to_sym
@@ -55,7 +56,7 @@ end
 
 def print_footer(students)
   # finally, we print the total number of students
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great student#{"s" if students.count > 1}"
 end
 
 def display_by_letter(students,letter)
@@ -93,7 +94,18 @@ def align_students(students)
   students.each do |name|
     puts name[:name].center(cen)
   end
+  puts
 end
+
+def display_group(students)
+  puts "Sorted by COHORT name"
+  # sort the students array
+  students.sort! {|a,b| a[:cohort]<=>b[:cohort]}
+  print_header
+  print(students)
+  print_footer(students)
+end
+
 # Nothing happens until we call the methods
 students = input_students
 print_header
@@ -104,3 +116,4 @@ display_by_letter(students,"a")
 display_less_twelve(students)
 print_while(students)
 align_students(students)
+display_group(students)
