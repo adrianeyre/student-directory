@@ -40,9 +40,9 @@ def interactive_menu
   students = []
   loop do
     # 1. print the menu and ask the user what to do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit" # 9 because we'll be adding more items
+    puts "1. Input the Students"
+    puts "2. Show the Students"
+    puts "9. Exit"
     # 2. read the input and save it into a variable
     selection = gets.chomp
     # 3. do what the user has asked
