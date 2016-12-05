@@ -1,3 +1,4 @@
+require 'csv'
 @students = [] # Create a global array
 
 def input_students
@@ -65,7 +66,7 @@ end
 
 def save_students(filename="students.csv")
   # open the file for writing
-  CSV.foreach(filename) do |line|
+  CSV.open(filename,"w") do |line|
     @students.each do |student|
       line << [student[:name], student[:cohort]]
     end
@@ -79,9 +80,9 @@ end
 def load_students(filename="students.csv")
   filename = "students.csv" if filename == ""
   if File.exists?(filename)
-    CSV.foreach(filename) do |line|
-      name,cohort = line.chomp.split(",")
+    CSV.foreach(filename) do |name,cohort|
       add_student name, cohort
+      next
     end
   else
     puts "Filename does not exist!"

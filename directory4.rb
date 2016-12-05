@@ -1,4 +1,3 @@
-require 'csv'
 @students = [] # Create a global array
 
 def input_students
