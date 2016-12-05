@@ -65,7 +65,6 @@ end
 
 def save_students(filename="students.csv")
   # open the file for writing
-  #File.open(filename,"w") do |f|
   CSV.foreach(filename) do |line|
     @students.each do |student|
       line << [student[:name], student[:cohort]]
