@@ -32,17 +32,21 @@ def print_footer
 end
 
 def interactive_menu
-  loop {print_menu ; process(STDIN.gets.chomp)}
+  loop do
+    print_menu
+    result = menu_process(STDIN.gets.chomp)
+    puts result if result != nil
+  end
 end
 
-def process(selection)
+def menu_process(selection)
   case selection
     when "1" ; input_students
     when "2" ; show_students
-    when "3" ; save_students
-    when "4" ; load_students
+    when "3" ; filename = ask_filename ; save_students(filename)
+    when "4" ; filename = ask_filename ; load_students(filename)
     when "9" ; exit
-    else ; puts "I don't know what you meant, try again"
+    else ; return "#{selection} is not a valid selection"
   end
 end
 
@@ -54,16 +58,20 @@ def show_students
   print_header ; print_student_list ; print_footer
 end
 
-def save_students
+def ask_filename
+  puts "Please enter the filename: "
+  filename = gets.chomp
+end
+
+def save_students(filename="students.csv")
   # open the file for writing
-  file = File.open("students.csv","w")
-  # iterate over the array of student
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File.open(filename,"w") do |f|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      f.puts csv_line
+    end
   end
-  file.close
 end
 
 def add_student(name,cohort="november")
@@ -71,9 +79,17 @@ def add_student(name,cohort="november")
 end
 
 def load_students(filename="students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each {|line| name,cohort = line.chomp.split(",") ;add_student name, cohort}
-  file.close
+  filename = "students.csv" if filename = ""
+  if File.exists?(filename)
+    File.open(filename,"r") do |f|
+      while line = f.gets
+        name,cohort = line.chomp.split(",")
+        add_student name, cohort
+      end
+    end
+  else
+    puts "Filename does not exist!"
+  end
 end
 
 def try_load_students
