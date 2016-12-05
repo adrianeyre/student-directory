@@ -10,6 +10,7 @@ def input_students
     puts "Enter cohort: "
     cohort = gets
     cohort = cohort[0..-2]
+    cohort = cohort
     cohort.gsub!(" ","")
     cohort = "november" if cohort == ""
     cohort = cohort.to_sym
