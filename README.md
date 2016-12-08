@@ -2,7 +2,10 @@
 
 The student directory script allows you to manage the list of students enrolled at Villains Academy
 
-# Files #
+## Source Files and Instructions ##
+* [Student Directory] (https://github.com/makersacademy/student-directory)
+
+## Files ##
 * [directory.rb - Original file] (directory.rb)
 * [directory2.rb - Tasks in exercise 8 ] (directory2.rb)
 * [directory3.rb - saves and loads using CSV.] (directory3.rb)
