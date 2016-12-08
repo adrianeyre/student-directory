@@ -1,18 +1,20 @@
 def input_students
+  # Array to check months
+  months = ["january","february","march","april","may","june","july","august","september","october","november","december"]
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # Create an empty array
   students = []
+  cohort = ""
   # get the first name
   name = gets.chomp
   # while the name is not empty, repat this code
   while !name.empty? do
-    puts "Enter cohort: "
-    cohort = gets
-    cohort = cohort[0..-2]
-    cohort = cohort
-    cohort.gsub!(" ","")
-    cohort = "november" if cohort == ""
+    # check to see if user types the month correctly
+    while !months.include? cohort
+      puts "Enter cohort: "
+      cohort = gets.downcase.chomp
+    end
     cohort = cohort.to_sym
     puts "Enter hobbies: "
     hobbies = gets.chomp
@@ -71,6 +73,13 @@ def display_by_letter(students,letter)
   puts
 end
 
+def display_by_letter2(students,letter)
+  # iteration around the students array
+  puts "Displaying students that begin with the letter #{letter}"
+  students.map {|student| puts "name = #{student[:name]}" if letter.downcase == student[:name][0]}
+  puts
+end
+
 def display_less_twelve(students)
   # iteration around the students array
   puts "Displaying students that are less than 12 in length"
@@ -113,7 +122,11 @@ print_header
 print(students)
 print_footer(students)
 puts
+# Display name beginning with the letter a
 display_by_letter(students,"a")
+# Different version
+display_by_letter2(students,"a")
+
 display_less_twelve(students)
 print_while(students)
 align_students(students)
